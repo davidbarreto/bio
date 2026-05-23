@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>david_bf — terminal</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Fira+Code:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0d1117;
+            --bg2: #161b22;
+            --bg3: #21262d;
+            --border: #30363d;
+            --green: #39d353;
+            --green-dim: #26a641;
+            --cyan: #79c0ff;
+            --yellow: #e3b341;
+            --red: #f85149;
+            --purple: #d2a8ff;
+            --white: #e6edf3;
+            --muted: #7d8590;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: var(--bg);
+            font-family: 'JetBrains Mono', 'Fira Code', monospace;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 24px 16px 40px;
+            color: var(--white);
+        }
+
+        #terminal-window {
+            width: 100%;
+            max-width: 860px;
+            background: var(--bg2);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.04), 0 24px 64px rgba(0, 0, 0, 0.7), 0 8px 24px rgba(0, 0, 0, 0.5);
+            overflow: hidden;
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+
+        #titlebar {
+            background: var(--bg3);
+            border-bottom: 1px solid var(--border);
+            padding: 10px 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-shrink: 0;
+        }
+
+        .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .dot.red {
+            background: #ff5f57;
+        }
+
+        .dot.yellow {
+            background: #febc2e;
+        }
+
+        .dot.green {
+            background: #28c840;
+        }
+
+        #titlebar-label {
+            flex: 1;
+            text-align: center;
+            font-size: 12px;
+            color: var(--muted);
+            letter-spacing: 0.5px;
+            margin-right: 36px;
+        }
+
+        #terminal-body {
+            flex: 1;
+            padding: 20px 24px 24px;
+            overflow-y: auto;
+            font-size: 14px;
+            line-height: 1.7;
+            cursor: text;
+        }
+
+        #terminal-body::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        #terminal-body::-webkit-scrollbar-thumb {
+            background: var(--border);
+            border-radius: 3px;
+        }
+
+        .line {
+            display: block;
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .blank {
+            height: 1.7em;
+        }
+
+        .prompt-line {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            margin-top: 4px;
+        }
+
+        .ascii-photo {
+            font-family: monospace;
+            font-size: 12px;
+            line-height: 12px;
+            letter-spacing: unset;
+            white-space: pre;
+            display: block;
+            color: #1a1a1a;
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 6px;
+        }
+
+        .p-user {
+            color: var(--green);
+            font-weight: 700;
+        }
+
+        .p-at {
+            color: var(--muted);
+        }
+
+        .p-host {
+            color: var(--cyan);
+            font-weight: 700;
+        }
+
+        .p-colon {
+            color: var(--muted);
+        }
+
+        .p-path {
+            color: var(--purple);
+        }
+
+        .p-dollar {
+            color: var(--muted);
+            margin: 0 8px;
+        }
+
+        .p-cmd {
+            color: var(--white);
+        }
+
+        .out-muted {
+            color: var(--muted);
+        }
+
+        .out-green {
+            color: var(--green);
+        }
+
+        .out-cyan {
+            color: var(--cyan);
+        }
+
+        .out-yellow {
+            color: var(--yellow);
+        }
+
+        .out-red {
+            color: var(--red);
+        }
+
+        .out-purple {
+            color: var(--purple);
+        }
+
+        .out-bold {
+            font-weight: 700;
+        }
+
+        .out-link {
+            color: var(--cyan);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .out-link:hover {
+            color: var(--white);
+        }
+
+        .ascii {
+            color: var(--green);
+            font-size: 12px;
+            line-height: 1.3;
+            display: block;
+        }
+
+        .separator {
+            color: var(--border);
+            display: block;
+        }
+
+        .cmd-table {
+            display: grid;
+            grid-template-columns: max-content 1fr;
+            gap: 2px 20px;
+            margin: 4px 0;
+        }
+
+        .cmd-name {
+            color: var(--yellow);
+        }
+
+        .cmd-desc {
+            color: var(--muted);
+        }
+
+        .tag {
+            display: inline-block;
+            background: rgba(57, 211, 83, 0.12);
+            color: var(--green);
+            border: 1px solid rgba(57, 211, 83, 0.3);
+            border-radius: 4px;
+            padding: 1px 8px;
+            font-size: 12px;
+            margin: 2px 3px 2px 0;
+            vertical-align: middle;
+        }
+
+        .tag.blue {
+            background: rgba(121, 192, 255, 0.1);
+            color: var(--cyan);
+            border-color: rgba(121, 192, 255, 0.3);
+        }
+
+        .tag.yellow {
+            background: rgba(227, 179, 65, 0.1);
+            color: var(--yellow);
+            border-color: rgba(227, 179, 65, 0.3);
+        }
+
+        .tag.purple {
+            background: rgba(210, 168, 255, 0.1);
+            color: var(--purple);
+            border-color: rgba(210, 168, 255, 0.3);
+        }
+
+        .link-row {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+            margin: 3px 0;
+        }
+
+        .link-key {
+            color: var(--yellow);
+            min-width: 160px;
+            display: inline-block;
+        }
+
+        .link-val {
+            color: var(--cyan);
+            text-decoration: underline;
+            cursor: pointer;
+        }
+
+        .link-val:hover {
+            color: #fff;
+        }
+
+        .link-note {
+            color: var(--muted);
+            font-size: 12px;
+        }
+
+        #input-row {
+            display: flex;
+            align-items: center;
+            margin-top: 6px;
+            flex-wrap: wrap;
+        }
+
+        #input-field {
+            background: transparent;
+            border: none;
+            outline: none;
+            color: var(--white);
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            flex: 1;
+            caret-color: var(--green);
+            min-width: 60px;
+        }
+
+        @media(max-width:600px) {
+            body {
+                padding: 12px 8px 32px;
+            }
+
+            #terminal-body {
+                font-size: 12.5px;
+                padding: 14px 14px 18px;
+            }
+
+            #input-field {
+                font-size: 12.5px;
+            }
+
+            .link-key {
+                min-width: 120px;
+                font-size: 12px;
+            }
+
+            .ascii {
+                font-size: 9px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <script src="assets/data.js"></script>
+
+    <div id="terminal-window">
+        <div id="titlebar">
+            <div class="dot red"></div>
+            <div class="dot yellow"></div>
+            <div class="dot green"></div>
+            <div id="titlebar-label" id="titlebar-label"></div>
+        </div>
+        <div id="terminal-body" onclick="focusInput()">
+            <div id="output"></div>
+            <div id="input-row">
+                <span class="p-user" id="live-user"></span><span class="p-at">@</span><span
+                    class="p-host">portfolio</span><span class="p-colon">:</span><span class="p-path"
+                    id="live-path">~</span><span class="p-dollar">$</span>
+                <input id="input-field" type="text" autocomplete="off" autocorrect="off" autocapitalize="off"
+                    spellcheck="false" aria-label="terminal input">
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ── Wire up identity from data.js ─────────────────────────
+        document.getElementById('titlebar-label').textContent = PORTFOLIO.handle + '@portfolio: ~';
+        document.getElementById('live-user').textContent = PORTFOLIO.handle;
+
+        const output = document.getElementById('output');
+        const inputEl = document.getElementById('input-field');
+        const livePath = document.getElementById('live-path');
+
+        let history = [], historyIdx = -1, currentPath = '~';
+        let contactStep = -1, contactData = {};
+
+        const DIRS = {
+            '~': ['README.md', 'about.txt', 'skills.json', 'links.txt', 'contact.sh', 'photo.txt', 'projects/'],
+            '~/projects': ['(coming_soon.txt)'],
+        };
+        const FILES = { 'README.md': showReadme, 'about.txt': cmdAbout, 'skills.json': showSkillsJson, 'links.txt': cmdLinks, 'contact.sh': showContactSh, 'photo.txt': showPhoto, };
+
+        // ── Helpers ───────────────────────────────────────────────
+        function esc(s) { return String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); }
+        function printLine(text = '', cls = '', html = false) {
+            const el = document.createElement('div'); el.className = 'line ' + (cls || '');
+            if (html) el.innerHTML = text; else el.textContent = text;
+            output.appendChild(el); scroll(); return el;
+        }
+        function printHTML(html, cls = '') {
+            const el = document.createElement('div'); el.className = 'line ' + cls;
+            el.innerHTML = html; output.appendChild(el); scroll(); return el;
+        }
+        function printPrompt(cmd) {
+            const el = document.createElement('div'); el.className = 'prompt-line';
+            el.innerHTML = `<span class="p-user">${esc(PORTFOLIO.handle)}</span><span class="p-at">@</span><span class="p-host">portfolio</span><span class="p-colon">:</span><span class="p-path">${esc(currentPath)}</span><span class="p-dollar">$</span>&nbsp;<span class="p-cmd">${esc(cmd)}</span>`;
+            output.appendChild(el); scroll();
+        }
+        function printSep() { printLine('─'.repeat(60), 'separator'); }
+        function scroll() { document.getElementById('terminal-body').scrollTop = 99999; }
+        function focusInput() { inputEl.focus(); }
+        function updatePromptPath() { livePath.textContent = currentPath; }
+
+        // ── Boot ─────────────────────────────────────────────────
+        const ASCII_LOGO = `  ██████╗  █████╗ ██╗   ██╗██╗██████╗     ██████╗ ███████╗
+  ██╔══██╗██╔══██╗██║   ██║██║██╔══██╗    ██╔══██╗██╔════╝
+  ██║  ██║███████║██║   ██║██║██║  ██║    ██████╔╝█████╗
+  ██║  ██║██╔══██║╚██╗ ██╔╝██║██║  ██║    ██╔══██╗██╔══╝
+  ██████╔╝██║  ██║ ╚████╔╝ ██║██████╔╝    ██████╔╝██║
+  ╚═════╝ ╚═╝  ╚═╝  ╚═══╝  ╚═╝╚═════╝     ╚═════╝ ╚═╝`;
+
+        const PROFILE_PIC = `                                                                      
+                                                                      
+                            ░▒▓███▓▓▓▓▓▓▓▓▓▒░                         
+                        ░░▓██████████████▓▓▓▓▒ ░                      
+                      ░▒████████████████▓▓▓▓▓▓▓▒▒░                    
+                    ░▓██████████████████▓▓▓█▓▓▓▓▓▒░                   
+                  ░▒▓███████████▓▓▓▓▓████████▓▓▓▒▒▒▒░                 
+                 ░▓███████████▓▓▒▒█▓▓▒▒░░▒▓█████▓▓▒▒░░                
+                ░██████████████▓▓▓▒▒░░    ░░░▓██▓▓▒▒▒▒░               
+               ░██████████████▓▒▒▒░░░░      ░░▓█▓▓▓▓▓▓▒░              
+              ░██████████████▓▒▒░░░░░░░      ░░▓███▓▓▓█▒              
+             ░▓█████████████▓▒▒░░░░░░░░       ░░▓███▓▓▓▓░             
+            ░▒██████████████▒░░░░░░░░░          ░████▒▒▓▒░░           
+           ░▒██████████████▓▒▒░░░░░░░░           ▒███▓▒▒▒▒░           
+          ░░███████████████████▓▒░░░░░░▒▓▓▓▓▒░░░░░▓███▓▓▓▒░░          
+         ░░▓██████████████▓▓█████▓▒░   ░███▒░     ░████▓▓▒▒▒░         
+         ░▒███████████████████████▒░  ░▒▓▓▓▓░░░    ▒████▓▓▓▒░░        
+        ░░▓██████████████▓▓▓▓▓▓█▓▓▒░   ░▒▒▒▒░░░░   ░█████▓▒▒▒░        
+        ░░▓█████████████▒░░░▒▒▒▒▒▒░░    ░░░░░░      ▓█████▓▒▒░        
+       ░░▒█████████████▓▒░░░░░▒▒▒▒░░     ░░░░       ▒█████▓▒▒         
+      ░░▒▓█████████████▒▒░░░░▒▒▒▒▓▒░  ░  ░░░░       ░█████▓▒░░        
+      ░░▒▓█████████████▒▒░░▒▒▒▒▓██▓░░░░   ░░░       ░█████▓▒░         
+    ░░░▒▒██████████████▓▒░▒▓██████▓▓█▒░░░░░░░░      ██████▓▒░         
+   ░░░▒░▓██████████████▒▒▒░▓███▓▓▒▒░░    ░▓▒▒▒      █████▓▒░░         
+   ░░░▒▓███████████████▒▒▒▒░▒▓██▓▒░░░ ░░░░  ░░     █████▓▓▓░          
+  ░░░░▓█████████████████▒▒▒▒▒▒▒▒▒▒▒▒░░      ░      ███▓▒▒▓▓░          
+░░░░░▒███████████████████▓▒▒▒▒▒▒▓▓▓▓▒▒░           ▒██▓▓▒▒▓▒░          
+░░░░░▓█████████████████████▓▒▒░░▒▒▒▒▒░            ▒█▓▓▒▓▒▒▒░          
+░░░▒▒▓████████████████████████▒░▒▒▒░▒░░░   ░░     ░█▓▓▓▓▓▒▒░          
+░░▒▓▓███████████████████████████▓▒▒▒▒░▒░░░░       ░██▒▓▓▓▒▒░          
+▓▓▓█████████████████████████▓▓▓███▓▓▓▒▒░░         ░██▓▓▓▓▓▒░░         
+▓▓▓████████████████████████▓▓▓▓▓▓▓▒░░░            ░███▓▓▓▓▓▒░         
+███████████████████████▓███▓▓▒▒▒▓▓▓▒░░            ░▓█▓▓▓▓▓▓▓▒░░       
+███████████████████████████▓▒▒▒▒▒▒▒▒▒░         ░░░░▓▓▓█▓▒▓▓▓▓▓▒▒░     
+███████████████████████████▓▒▒▒░░░▒▒▒░░   ░░░░░░░░▒██▒▓▓▒▓██▓▓██▓▓▒   
+████████████████████████████▓▒▒▒░░░░░░░░░░░░░░░░░░▓█▓▓▓▒▒░▓█▓▓▓█████▓▓
+███████████████████████████████▓▒░░░░░░░░░░░░░░░░▒██▓▒▒▓▒░████▓▓██████
+███████████████████████████████████░░░░░░░░░░░░░████▓▒▒▒▒░████████████`;
+
+        function boot() {
+            printLine(ASCII_LOGO, 'ascii');
+            printLine('');
+            const boots = [
+                [0, 'Initializing ' + PORTFOLIO.handle + '/portfolio v1.0.0...', 'out-muted'],
+                [300, 'Loading profile data..............  [OK]', 'out-green'],
+                [550, 'Mounting /dev/brain..................[OK]', 'out-green'],
+                [750, 'Starting curiosity daemon............[OK]', 'out-green'],
+                [950, 'WARNING: coffee levels critical', 'out-yellow'],
+                [1100, '', ''],
+            ];
+            boots.forEach(([delay, text, cls]) => setTimeout(() => printLine(text, cls), delay));
+            setTimeout(() => {
+                printHTML('Type <span class="out-yellow">help</span> to see available commands.', 'out-muted');
+                printLine(''); focusInput();
+            }, 1300);
+        }
+
+        // ── Commands ──────────────────────────────────────────────
+        function cmdHelp() {
+            printLine(''); printLine('Available commands:', 'out-cyan out-bold'); printLine('');
+            const cmds = [
+                ['whoami', 'display short identity card'],
+                ['about', 'read the full bio'],
+                ['skills', 'list tech skills & stack'],
+                ['links', 'show all social & professional links'],
+                ['competitive', 'show competitive programming profiles'],
+                ['contact', 'get in touch'],
+                ['neofetch', 'system info (the important kind)'],
+                ['ls', 'list files in current directory'],
+                ['cat <file>', 'read a file  (try: cat README.md or cat photo.txt - to see what I look like)'],
+                ['cd <dir>', 'change directory'],
+                ['pwd', 'print working directory'],
+                ['echo <text>', 'print text'],
+                ['clear', 'clear the terminal'],
+            ];
+            const grid = document.createElement('div'); grid.className = 'cmd-table line';
+            cmds.forEach(([n, d]) => { const ns = document.createElement('span'); ns.className = 'cmd-name'; ns.textContent = n; const ds = document.createElement('span'); ds.className = 'cmd-desc'; ds.textContent = d; grid.appendChild(ns); grid.appendChild(ds); });
+            output.appendChild(grid); scroll();
+            printLine(''); printLine('Tip: ↑ / ↓ navigate history  ·  Tab autocomplete  ·  1–4 shortcut keys', 'out-muted'); printLine('');
+        }
+
+        function cmdWhoami() {
+            printLine(''); printLine(PORTFOLIO.handle, 'out-green out-bold');
+            printLine(PORTFOLIO.fullName + ' — ' + PORTFOLIO.title);
+            printLine(PORTFOLIO.location, 'out-muted'); printLine('');
+            printLine('[ ' + PORTFOLIO.tagline + ' ]', 'out-cyan'); printLine('');
+        }
+
+        function cmdAbout() {
+            printLine(''); printLine('# about.txt', 'out-yellow out-bold'); printSep(); printLine('');
+            PORTFOLIO.bio.forEach(p => printLine(p));
+            printLine('');
+            if (PORTFOLIO.currently.length) {
+                printLine('Currently:', 'out-cyan out-bold');
+                PORTFOLIO.currently.forEach(c => printLine('  → ' + c, 'out-muted'));
+                if (PORTFOLIO.currentlyNote) { printLine(''); printLine(PORTFOLIO.currentlyNote, 'out-yellow'); }
+            }
+            printLine('');
+        }
+
+        function cmdSkills() {
+            printLine(''); printLine('# skills', 'out-yellow out-bold'); printSep(); printLine('');
+            const sections = [['Languages', 'languages', ''], ['Areas', 'areas', 'blue'], ['Tools & Tech', 'tools', 'yellow']];
+            sections.forEach(([title, key, tagClass]) => {
+                printLine(title + ':', 'out-cyan');
+                const wrap = document.createElement('div'); wrap.className = 'line';
+                PORTFOLIO.skills[key].forEach(s => { const t = document.createElement('span'); t.className = 'tag ' + (tagClass || ''); t.textContent = s; wrap.appendChild(t); });
+                output.appendChild(wrap); scroll(); printLine('');
+            });
+        }
+
+        function cmdLinks() {
+            printLine(''); printLine('# Social & Professional', 'out-yellow out-bold'); printSep(); printLine('');
+            PORTFOLIO.social.forEach(({ label, url, note }) => {
+                const row = document.createElement('div'); row.className = 'link-row line';
+                row.innerHTML = `<span class="link-key">${esc(label)}</span><a class="link-val" href="${esc(url)}" target="_blank" rel="noopener">${esc(url)}</a><span class="link-note">${esc(note)}</span>`;
+                output.appendChild(row); scroll();
+            });
+            printLine(''); printLine('→ run competitive  for coding platform profiles', 'out-muted'); printLine('');
+        }
+
+        function cmdCompetitive() {
+            printLine(''); printLine('# Competitive Programming Profiles', 'out-yellow out-bold'); printSep(); printLine('');
+            PORTFOLIO.competitive.forEach(({ label, handle, url, color }) => {
+                const row = document.createElement('div'); row.className = 'link-row line';
+                row.innerHTML = `<span class="link-key" style="color:${esc(color)}">● ${esc(label)}</span><a class="link-val" href="${esc(url)}" target="_blank" rel="noopener">${esc(url)}</a><span class="link-note">(${esc(handle)})</span>`;
+                output.appendChild(row); scroll();
+            });
+            printLine('');
+        }
+
+        function cmdContact() {
+            printLine(''); printLine('# contact', 'out-yellow out-bold'); printSep(); printLine('');
+            printLine('Preferred email:', 'out-muted');
+            printHTML(`  <span class="out-cyan">mailto:</span> <a class="link-val" href="mailto:${esc(PORTFOLIO.email)}">${esc(PORTFOLIO.email)}</a>`);
+            printLine(''); printLine('Or run: send-mail  to compose from here', 'out-muted'); printLine('');
+        }
+
+        function showReadme() {
+            printLine(''); printLine('# README.md', 'out-yellow out-bold'); printSep(); printLine('');
+            printLine('## ' + PORTFOLIO.handle + '/portfolio', 'out-cyan'); printLine('');
+            printLine('Welcome to my terminal-based portfolio.'); printLine('');
+            [['whoami', 'who I am'], ['about', 'full bio'], ['skills', 'tech stack'], ['links', 'social & professional'], ['competitive', 'coding platforms'], ['contact', 'get in touch'], ['neofetch', 'system info']].forEach(([c, d]) => printLine('  ' + c.padEnd(13) + '→ ' + d));
+            printLine(''); printLine('Built with: HTML + CSS + vanilla JS + stubbornness.', 'out-muted'); printLine('');
+        }
+
+        function showSkillsJson() {
+            printLine(''); printLine('# skills.json', 'out-yellow out-bold'); printSep();
+            const obj = { name: PORTFOLIO.handle, languages: PORTFOLIO.skills.languages, areas: PORTFOLIO.skills.areas, tools: PORTFOLIO.skills.tools, currently_building: PORTFOLIO.currently[0] || '' };
+            JSON.stringify(obj, null, 2).split('\n').forEach(l => {
+                const colored = l.replace(/"([^"]+)":/g, '<span class="out-cyan">"$1"</span>:').replace(/: "([^"]+)"/g, ': <span class="out-yellow">"$1"</span>').replace(/"([^"]+)"/g, '<span class="out-green">"$1"</span>');
+                printHTML(colored);
+            });
+            printLine('');
+        }
+
+        function showContactSh() {
+            printLine(''); printLine('# contact.sh', 'out-yellow out-bold'); printSep(); printLine('');
+            printLine('#!/bin/bash', 'out-muted'); printLine('# Open mail client to reach ' + PORTFOLIO.handle, 'out-muted'); printLine('');
+            printLine('EMAIL="' + PORTFOLIO.email + '"', 'out-green');
+            printLine('xdg-open "mailto:$EMAIL"'); printLine(''); printLine('# Or just run: contact', 'out-muted'); printLine('');
+        }
+
+        function showPhoto() {
+            const pre = document.createElement('pre');
+            pre.className = 'ascii-photo';   // ← drop 'ascii' entirely
+            pre.textContent = PROFILE_PIC;
+            output.appendChild(pre);
+            scroll();
+        }
+
+        function cmdNeofetch() {
+            printLine('');
+            const logo = [
+'     _________     ',
+'    / ======= \    ',
+'   / __________\   ',
+'  | ___________ |  ',
+'  | |>_ david | |  ',
+'  | |         | |  ',
+'  | |_________| |  ',
+'  \=____________/  ',
+'  / """"""""""" \  ',
+' / ::::::::::::: \ ',
+'(_________________)',
+];
+            const info = Object.entries(PORTFOLIO.neofetch);
+            const maxLen = Math.max(...logo.map(l => l.length));
+            const maxVal = 35; // ← max characters for value
+
+            logo.forEach((l, i) => {
+                const pad = l.padEnd(maxLen + 4);
+                if (!info[i]) { printHTML(`<span class="out-green">${esc(pad)}</span>`); return; }
+                const [k, v] = info[i];
+                const val = v.length > maxVal ? v.slice(0, maxVal - 1) + '…' : v;
+                printHTML(`<span class="out-green">${esc(pad)}</span><span class="out-cyan out-bold">${esc(k)}:</span> <span>${esc(val)}</span>`);
+            });
+            for (let i = logo.length; i < info.length; i++) {
+                const pad = ' '.repeat(maxLen + 4); const [k, v] = info[i];
+                const val = v.length > maxVal ? v.slice(0, maxVal - 1) + '…' : v;
+                printHTML(`<span>${esc(pad)}</span><span class="out-cyan out-bold">${esc(k)}:</span> <span>${esc(val)}</span>`);
+            }
+            const colors = ['#39d353', '#79c0ff', '#e3b341', '#f85149', '#d2a8ff', '#ffa657', '#7d8590', '#e6edf3'];
+            const pad = ' '.repeat(maxLen + 4);
+            const swatch = colors.map(c => `<span style="background:${c};color:${c};user-select:none;"> ██ </span>`).join('');
+            printHTML(`<span>${esc(pad)}</span>${swatch}`);
+            printLine('');
+        }
+
+        function cmdNeofetchOLD() {
+            printLine('');
+            const logo = ['        .          .       ', '    .-\'\'\'\'\'-.   ', '   /  david  \\  ', '  |    _bf_   | ', '  |   (o . o) | ', '   \\   \\___/  /', '    \'-......-\'  '];
+            const info = Object.entries(PORTFOLIO.neofetch);
+            const maxLen = Math.max(...logo.map(l => l.length));
+            logo.forEach((l, i) => {
+                const pad = l.padEnd(maxLen + 4);
+                if (!info[i]) { printHTML(`<span class="out-green">${esc(pad)}</span>`); return; }
+                const [k, v] = info[i];
+                printHTML(`<span class="out-green">${esc(pad)}</span><span class="out-cyan out-bold">${esc(k)}:</span> <span>${esc(v)}</span>`);
+            });
+            for (let i = logo.length; i < info.length; i++) {
+                const pad = ' '.repeat(maxLen + 4); const [k, v] = info[i];
+                printHTML(`<span>${esc(pad)}</span><span class="out-cyan out-bold">${esc(k)}:</span> <span>${esc(v)}</span>`);
+            }
+            const colors = ['#39d353', '#79c0ff', '#e3b341', '#f85149', '#d2a8ff', '#ffa657', '#7d8590', '#e6edf3'];
+            const pad = ' '.repeat(maxLen + 4);
+            const swatch = colors.map(c => `<span style="background:${c};color:${c};user-select:none;"> ██ </span>`).join('');
+            printHTML(`<span>${esc(pad)}</span>${swatch}`);
+            printLine('');
+        }
+
+        function cmdLs() {
+            printLine('');
+            const files = DIRS[currentPath] || DIRS['~'];
+            const row = document.createElement('div'); row.className = 'line';
+            files.forEach(f => { const s = document.createElement('span'); s.style.color = f.endsWith('/') ? 'var(--cyan)' : 'var(--white)'; if (f.endsWith('/')) s.style.fontWeight = '700'; s.textContent = f + '  '; row.appendChild(s); });
+            output.appendChild(row); scroll(); printLine('');
+        }
+
+        function cmdCat(args) { const f = args[0]; if (!f) { printLine('cat: missing operand', 'out-red'); return; } const fn = FILES[f]; if (fn) { fn(); return; } printLine('cat: ' + f + ': No such file or directory', 'out-red'); printLine(''); }
+        function cmdPwd() { printLine(''); printLine('/home/' + PORTFOLIO.handle + (currentPath === '~' ? '' : '/' + currentPath.replace('~/', ''))); printLine(''); }
+        function cmdCd(args) { const t = args[0] || '~'; if (t === '~' || t === '') { currentPath = '~'; updatePromptPath(); printLine(''); return; } const f = currentPath === '~' ? '~/' + t : currentPath + '/' + t; if (DIRS[f]) { currentPath = f; updatePromptPath(); printLine(''); } else if (t === '..') { currentPath = '~'; updatePromptPath(); printLine(''); } else { printLine('cd: ' + t + ': No such file or directory', 'out-red'); printLine(''); } }
+        function cmdEcho(args) { printLine(''); printLine(args.join(' ') || ''); printLine(''); }
+        function cmdClear() { output.innerHTML = ''; }
+
+        // ── Contact form ──────────────────────────────────────────
+        function startSendMail() {
+            contactStep = 0; printLine(''); printLine('Interactive mail composer', 'out-cyan out-bold'); printSep(); printLine(''); printLine('Your name:', 'out-yellow');
+        }
+        function handleContactStep(val) {
+            if (contactStep === 0) { contactData.name = val; printLine('  ' + val); printLine(''); printLine('Your email:', 'out-yellow'); contactStep = 1; }
+            else if (contactStep === 1) { contactData.email = val; printLine('  ' + val); printLine(''); printLine('Your message:', 'out-yellow'); contactStep = 2; }
+            else if (contactStep === 2) { contactData.message = val; printLine('  ' + val); printLine(''); printSep(); printLine('  To: ' + PORTFOLIO.email, 'out-muted'); printLine('  From: ' + contactData.name + ' <' + contactData.email + '>', 'out-muted'); printLine('  Message: ' + contactData.message, 'out-muted'); printSep(); printLine(''); printLine('Send? [Y/n]', 'out-yellow'); contactStep = 3; }
+            else if (contactStep === 3) {
+                if (val.toLowerCase() === 'y' || val === '' || val.toLowerCase() === 'yes') {
+                    const s = encodeURIComponent('Hey ' + PORTFOLIO.handle + ' — message from ' + contactData.name);
+                    const b = encodeURIComponent(contactData.message + '\n\n— ' + contactData.name + ' (' + contactData.email + ')');
+                    window.location.href = 'mailto:' + PORTFOLIO.email + '?subject=' + s + '&body=' + b;
+                    printLine(''); printLine('✔ Opening mail client...', 'out-green'); printLine('');
+                } else { printLine(''); printLine('Aborted.', 'out-red'); printLine(''); }
+                contactStep = -1; contactData = {};
+            }
+        }
+
+        // ── Parser ────────────────────────────────────────────────
+        const CMDS = {
+            help: cmdHelp, whoami: cmdWhoami, about: cmdAbout, skills: cmdSkills,
+            links: cmdLinks, competitive: cmdCompetitive, cp: cmdCompetitive,
+            social: cmdLinks, contact: cmdContact, neofetch: cmdNeofetch,
+            ls: cmdLs, pwd: cmdPwd, clear: cmdClear,
+        };
+
+        function runCommand(raw) {
+            const trimmed = raw.trim(); if (!trimmed) return;
+            history.unshift(trimmed); historyIdx = -1;
+            printPrompt(trimmed);
+            const parts = trimmed.split(/\s+/); const cmd = parts[0].toLowerCase(); const args = parts.slice(1);
+            if (cmd === 'send-mail') { startSendMail(); return; }
+            if (cmd in CMDS) { CMDS[cmd](args); }
+            else if (cmd === 'cat') { cmdCat(args); }
+            else if (cmd === 'cd') { cmdCd(args); }
+            else if (cmd === 'echo') { cmdEcho(args); }
+            else { printLine(''); printLine(cmd + ': command not found. Type help for available commands.', 'out-red'); printLine(''); }
+        }
+
+        // ── Input ─────────────────────────────────────────────────
+        const allCmds = ['help', 'whoami', 'about', 'skills', 'links', 'competitive', 'contact', 'neofetch', 'ls', 'cat', 'clear', 'pwd', 'cd', 'echo', 'send-mail'];
+        inputEl.addEventListener('keydown', e => {
+            if (e.key === 'Enter') { const v = inputEl.value; inputEl.value = ''; contactStep >= 0 ? handleContactStep(v.trim()) : runCommand(v); }
+            else if (e.key === 'ArrowUp') { e.preventDefault(); if (historyIdx < history.length - 1) { historyIdx++; inputEl.value = history[historyIdx]; } }
+            else if (e.key === 'ArrowDown') { e.preventDefault(); if (historyIdx > 0) { historyIdx--; inputEl.value = history[historyIdx]; } else { historyIdx = -1; inputEl.value = ''; } }
+            else if (e.key === 'Tab') { e.preventDefault(); const p = inputEl.value.trim().toLowerCase(); const m = allCmds.find(c => c.startsWith(p) && c !== p); if (m) inputEl.value = m; }
+            else if (e.key === 'l' && e.ctrlKey) { e.preventDefault(); cmdClear(); }
+        });
+        document.addEventListener('keydown', e => { if (e.target !== inputEl && !e.ctrlKey && !e.metaKey && e.key.length === 1) inputEl.focus(); });
+        // number shortcuts
+        document.addEventListener('keydown', e => {
+            if (e.target === inputEl) return;
+            const m = { '1': cmdWhoami, '2': cmdSkills, '3': cmdLinks, '4': cmdContact };
+            if (m[e.key]) m[e.key]();
+        });
+
+        function switchTheme() {
+            const themes = ['mario.html', 'pacman.html', 'cli.html'];
+            const next = themes.filter(t => t !== 'cli.html');
+            window.location.href = next[Math.floor(Math.random() * next.length)];
+        }
+
+        boot();
+    </script>
+</body>
+
+</html>
