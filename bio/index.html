@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>David Barreto Ferreira</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background:
+                radial-gradient(circle at top, #101828 0%, #09090d 55%);
+
+            color: #f5f5f5;
+
+            font-family: 'Inter', sans-serif;
+
+            min-height: 100vh;
+
+            display: flex;
+            justify-content: center;
+
+            padding: 42px 18px 80px;
+
+            overflow-x: hidden;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 430px;
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .avatar {
+            width: 118px;
+            height: 118px;
+
+            border-radius: 50%;
+            object-fit: cover;
+
+            border: 2px solid rgba(255, 255, 255, 0.08);
+
+            box-shadow:
+                0 0 40px rgba(0, 0, 0, 0.35);
+
+            margin-bottom: 18px;
+        }
+
+        .location {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+
+            margin-bottom: 24px;
+
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .location svg {
+            width: 14px;
+            height: 14px;
+            fill: #d6a96c;
+        }
+
+        h1 {
+            font-family: 'Space Grotesk', sans-serif;
+            font-size: 42px;
+            font-weight: 800;
+
+            text-align: center;
+            line-height: 1.05;
+
+            margin-bottom: 10px;
+        }
+
+        .role {
+            font-size: 18px;
+            font-weight: 500;
+
+            color: #d6a96c;
+
+            margin-bottom: 24px;
+        }
+
+        .bio {
+            text-align: center;
+
+            font-size: 16px;
+            line-height: 1.7;
+
+            color: rgba(255, 255, 255, 0.78);
+
+            margin-bottom: 40px;
+        }
+
+        /* ── Section title (static, non-foldable) ── */
+        .section-title {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            margin-bottom: 18px;
+
+            color: #d6a96c;
+
+            font-size: 20px;
+            font-weight: 600;
+        }
+
+        .section-title::before,
+        .section-title::after {
+            content: '';
+
+            flex: 1;
+            height: 1px;
+
+            background: rgba(214, 169, 108, 0.28);
+        }
+
+        /* ── Foldable section ── */
+        .fold-section {
+            width: 100%;
+            margin-bottom: 38px;
+        }
+
+        .fold-section summary {
+            list-style: none;
+            cursor: pointer;
+        }
+
+        .fold-section summary::-webkit-details-marker {
+            display: none;
+        }
+
+        /* Reuse section-title styles but add flex for the icon */
+        .fold-title {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+            gap: 14px;
+
+            margin-bottom: 0;
+
+            color: #d6a96c;
+
+            font-size: 20px;
+            font-weight: 600;
+
+            user-select: none;
+            transition: opacity 0.15s ease;
+        }
+
+        .fold-title:hover {
+            opacity: 0.85;
+        }
+
+        /* The lines flank the text, icon sits at the end */
+        .fold-title-text {
+            /* no shrink */
+            white-space: nowrap;
+        }
+
+        .fold-title-line {
+            flex: 1;
+            height: 1px;
+            background: rgba(214, 169, 108, 0.28);
+        }
+
+        .fold-icon {
+            display: flex;
+            align-items: center;
+            flex-shrink: 0;
+            color: #d6a96c;
+        }
+
+        .fold-icon svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.25s ease;
+        }
+
+        .fold-section[open] .fold-icon svg {
+            transform: rotate(180deg);
+        }
+
+        .fold-section .cards {
+            padding-top: 18px;
+            margin-bottom: 0;
+        }
+
+        /* ── Cards ── */
+        .cards {
+            width: 100%;
+
+            display: flex;
+            flex-direction: column;
+
+            gap: 12px;
+
+            margin-bottom: 42px;
+        }
+
+        .card {
+            width: 100%;
+
+            display: flex;
+            align-items: center;
+
+            gap: 16px;
+
+            padding: 16px 18px;
+
+            border-radius: 18px;
+
+            text-decoration: none;
+
+            background: rgba(255, 255, 255, 0.035);
+
+            border: 1px solid rgba(255, 255, 255, 0.06);
+
+            transition:
+                transform 0.15s ease,
+                border-color 0.15s ease,
+                background 0.15s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+
+            background: rgba(255, 255, 255, 0.05);
+
+            border-color: rgba(214, 169, 108, 0.2);
+        }
+
+        .card img {
+            width: 36px;
+            height: 36px;
+
+            object-fit: contain;
+
+            flex-shrink: 0;
+        }
+
+        .card-name {
+            flex: 1;
+
+            font-size: 18px;
+            font-weight: 600;
+
+            color: #f5f5f5;
+        }
+
+        .arrow {
+            color: #d6a96c;
+            font-size: 22px;
+        }
+
+        /* ── Socials ── */
+        .socials {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+
+            margin-bottom: 42px;
+        }
+
+        .social {
+            width: 54px;
+            height: 54px;
+
+            border-radius: 16px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            text-decoration: none;
+
+            background: rgba(255, 255, 255, 0.035);
+
+            border: 1px solid rgba(255, 255, 255, 0.06);
+
+            transition:
+                transform 0.15s ease,
+                background 0.15s ease,
+                border-color 0.15s ease;
+        }
+
+        .social:hover {
+            transform: translateY(-2px);
+
+            background: rgba(255, 255, 255, 0.06);
+
+            border-color: rgba(214, 169, 108, 0.18);
+        }
+
+        .social img {
+            width: 24px;
+            height: 24px;
+
+            object-fit: contain;
+        }
+
+        .footer {
+            margin-top: 8px;
+
+            font-size: 13px;
+
+            color: rgba(255, 255, 255, 0.35);
+        }
+
+        @media (max-width: 480px) {
+
+            h1 {
+                font-size: 34px;
+            }
+
+            .bio {
+                font-size: 15px;
+            }
+
+            .card-name {
+                font-size: 16px;
+            }
+
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="container">
+
+        <img class="avatar" src="assets/profile-david.png" alt="David Barreto Ferreira">
+
+        <div class="location">
+            <svg viewBox="0 0 24 24">
+                <path
+                    d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5z" />
+            </svg>
+            Porto, Portugal
+        </div>
+
+        <h1>David Barreto Ferreira</h1>
+
+        <div class="role">Tech Lead · Backend · AI</div>
+
+        <p class="bio">
+            Building scalable systems, backend platforms and AI automation workflows.
+            Passionate about software engineering, languages and music 🎸
+        </p>
+
+        <!-- Foldable: Competitive Programming -->
+        <details class="fold-section">
+            <summary class="fold-title">
+                <span class="fold-title-line"></span>
+                <span class="fold-title-text">Competitive Programming</span>
+                <span class="fold-title-line"></span>
+                <span class="fold-icon">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                    </svg>
+                </span>
+            </summary>
+
+            <div class="cards">
+
+                <a class="card" href="https://leetcode.com/u/david_bf/" target="_blank">
+                    <img src="https://cdn.simpleicons.org/leetcode" alt="LeetCode">
+                    <div class="card-name">LeetCode</div>
+                    <div class="arrow">→</div>
+                </a>
+
+                <a class="card" href="https://www.hackerrank.com/profile/david_brto" target="_blank">
+                    <img src="https://cdn.simpleicons.org/hackerrank" alt="HackerRank">
+                    <div class="card-name">HackerRank</div>
+                    <div class="arrow">→</div>
+                </a>
+
+                <a class="card" href="https://codeforces.com/profile/david_bf" target="_blank">
+                    <img src="https://cdn.simpleicons.org/codeforces" alt="Codeforces">
+                    <div class="card-name">Codeforces</div>
+                    <div class="arrow">→</div>
+                </a>
+
+                <a class="card" href="https://www.codechef.com/users/david_bf" target="_blank">
+                    <img src="https://cdn.simpleicons.org/codechef" alt="CodeChef">
+                    <div class="card-name">CodeChef</div>
+                    <div class="arrow">→</div>
+                </a>
+
+                <a class="card" href="https://profiles.topcoder.com/david_bf" target="_blank">
+                    <img src="https://cdn.simpleicons.org/topcoder" alt="Topcoder">
+                    <div class="card-name">Topcoder</div>
+                    <div class="arrow">→</div>
+                </a>
+
+                <a class="card" href="https://www.spoj.com/status/david_bf/" target="_blank">
+                    <img src="https://cdn.simpleicons.org/spoj" alt="SPOJ">
+                    <div class="card-name">SPOJ</div>
+                    <div class="arrow">→</div>
+                </a>
+
+                <a class="card"
+                    href="https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=19&page=show_authorstats&userid=26642"
+                    target="_blank">
+                    <img src="https://onlinejudge.org/templates/hm_yaml_2_5/img/ojlogo2.svg.png" alt="UVa">
+                    <div class="card-name">UVa Online Judge</div>
+                    <div class="arrow">→</div>
+                </a>
+
+            </div>
+        </details>
+
+        <!-- Static: Connect -->
+        <div class="section-title">Connect</div>
+
+        <div class="socials">
+
+            <a class="social" href="https://x.com/david_bf" target="_blank">
+                <img src="https://cdn.simpleicons.org/x/white" alt="X">
+            </a>
+
+            <a class="social" href="https://instagram.com/davidbrto" target="_blank">
+                <img src="https://cdn.simpleicons.org/instagram/white" alt="Instagram">
+            </a>
+
+            <a class="social" href="https://github.com/davidbarreto" target="_blank">
+                <img src="https://cdn.simpleicons.org/github/white" alt="GitHub">
+            </a>
+
+            <a class="social" href="https://www.linkedin.com/in/david-ferreira-7283462b/" target="_blank">
+                <img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg"
+                    style="filter: invert(1);" alt="LinkedIn">
+            </a>
+
+            <a class="social" href="https://lattes.cnpq.br/8553670361123217" target="_blank">
+                <img src="https://www.gov.br/observatorio/pt-br/assuntos/programas-academicos/imagens/Lattes.png/download"
+                    style="filter: invert(1);" alt="Lattes">
+            </a>
+
+            <a class="social" href="mailto:hello@davidbf.com">
+                <img src="https://cdn.simpleicons.org/maildotru/white" alt="Email">
+            </a>
+
+        </div>
+
+        <div class="footer">&copy;davidbf.com</div>
+
+    </div>
+
+</body>
+
+</html>
