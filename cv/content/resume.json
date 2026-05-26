@@ -2,11 +2,11 @@
     "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/master/schema.json",
     "basics": {
         "name": "David Barreto Ferreira",
-        "label": "Backend Software Engineer / Tech Lead",
+        "label": "Backend Engineer & Tech Lead",
         "image": "https://bio.davidbf.com/assets/profile-david.png",
         "email": "hello@davidbf.com",
         "url": "https://www.davidbf.com",
-        "summary": "Backend Software Engineer and Tech Lead with more than 10 years of experience designing and developing distributed systems and backend platforms. Currently leading a Java team at Devexperts working on core components of the thinkorswim trading platform. Experienced with Java, distributed systems, Oracle databases, Apache Camel and financial software infrastructure. Interested in systems programming, Rust, architecture, automation, emulation and developer tooling.",
+        "summary": "Backend engineer with 10+ years building distributed systems, mostly in Java, mostly in places where downtime isn't an option. I've shipped trading infrastructure, financial middleware, and offshore tooling — and led the teams doing it. Currently tech lead at Devexperts on the thinkorswim platform. Outside of work I'm exploring Rust, building a NES emulator, and assembling a self-hosted AI assistant I call Alfred.",
         "location": {
             "city": "Matosinhos",
             "region": "Porto",
@@ -42,16 +42,16 @@
     "work": [
         {
             "name": "Devexperts",
-            "position": "Java Team Lead",
+            "position": "Technical Lead",
             "url": "https://devexperts.com/",
             "startDate": "2023-08-01",
-            "summary": "Leading a backend engineering team responsible for core components of the thinkorswim trading platform.",
+            "summary": "Leading a backend engineering team responsible for core components of the thinkorswim trading platform, one of the most widely used platforms in retail trading.",
             "highlights": [
-                "Leading a team of 4–6 engineers in the development and maintenance of trading platform infrastructure",
-                "Developing backend systems using Java 17, Oracle DB and distributed communication technologies",
-                "Working on mission-critical financial software with high reliability and performance requirements",
-                "Collaborating across distributed international teams on architecture and production support",
-                "Contributing to system design, technical leadership and engineering processes"
+                "Leading a team of 4–6 engineers across distributed international locations",
+                "Designing and maintaining mission-critical trading infrastructure with high availability requirements",
+                "Backend development in Java 17 with Oracle DB and distributed messaging systems",
+                "Driving architecture decisions, code quality standards and engineering processes",
+                "Contributing to production support and incident response for financial-grade systems"
             ],
             "keywords": [
                 "Java",
@@ -60,23 +60,201 @@
                 "Distributed Systems",
                 "Financial Systems",
                 "Trading Platforms",
-                "Leadership",
+                "Tech Lead"
+            ]
+        },
+        {
+            "name": "Revolut",
+            "position": "Software Engineer",
+            "url": "https://www.revolut.com/",
+            "startDate": "2023-01-01",
+            "endDate": "2023-08-01",
+            "summary": "Backend engineering at one of Europe's largest fintech companies.",
+            "highlights": [
+                "Developed and maintained backend services in a high-scale microservices environment",
+                "Worked on financial products serving millions of users across Europe"
+            ],
+            "keywords": [
+                "Java",
+                "Microservices",
+                "Fintech",
+                "High Scale"
+            ]
+        },
+        {
+            "name": "Wellhub",
+            "position": "Software Engineer",
+            "url": "https://wellhub.com/",
+            "startDate": "2022-07-01",
+            "endDate": "2023-01-01",
+            "summary": "Backend development for a global corporate wellness platform.",
+            "highlights": [
+                "Built and maintained backend services supporting a global network of gyms and wellness partners",
+                "Worked in a distributed team on high-availability microservices"
+            ],
+            "keywords": [
+                "Java",
+                "Microservices",
                 "Backend"
+            ]
+        },
+        {
+            "name": "ALTER SOLUTIONS PORTUGAL",
+            "position": "Software Engineer",
+            "url": "https://www.alter-solutions.com/",
+            "startDate": "2021-04-01",
+            "endDate": "2022-07-01",
+            "summary": "Software consultant embedded at BNP Paribas / SLIB developing risk management web applications and services.",
+            "highlights": [
+                "Developed web applications and backend services for risk management systems at BNP Paribas/SLIB",
+                "Worked within a regulated financial environment with strict compliance and quality requirements"
+            ],
+            "keywords": [
+                "Java",
+                "Risk Management",
+                "BNP Paribas",
+                "Financial Services",
+                "Consulting"
+            ]
+        },
+        {
+            "name": "B3 – Brasil, Bolsa, Balcão",
+            "position": "Software Engineer",
+            "url": "https://www.b3.com.br/",
+            "startDate": "2019-05-01",
+            "endDate": "2021-04-01",
+            "summary": "Backend development for the Brazilian stock exchange, focusing on OTC (over-the-counter) systems and market infrastructure.",
+            "highlights": [
+                "Designed and implemented middleware and system integrations for the OTC department",
+                "Worked on NoMe (Novo Mercado), the insurance registration system and the Cetip21 internal framework",
+                "Automated software infrastructure maintenance across critical financial systems",
+                "Operated in a highly regulated, high-reliability environment processing billions in daily transactions"
+            ],
+            "keywords": [
+                "Java",
+                "Apache Camel",
+                "Middleware",
+                "OTC",
+                "Financial Infrastructure",
+                "Cetip21"
+            ]
+        },
+        {
+            "name": "Prill Tecnologia",
+            "position": "Tech Lead",
+            "url": null,
+            "startDate": "2017-01-01",
+            "endDate": "2019-05-01",
+            "summary": "Technical leadership for software projects in the oil & gas and financial sectors.",
+            "highlights": [
+                "Led technical proposals, resource planning and architecture design for client projects",
+                "Managed project delivery, requirements analysis and R&D initiatives",
+                "Modelled software architecture for distributed enterprise systems",
+                "Bridged technical and business stakeholders across complex multi-team projects"
+            ],
+            "keywords": [
+                "Java",
+                "Tech Lead",
+                "Architecture",
+                "Oil & Gas",
+                "Project Management"
+            ]
+        },
+        {
+            "name": "Prill Tecnologia",
+            "position": "Software Developer",
+            "url": null,
+            "startDate": "2012-11-01",
+            "endDate": "2017-01-01",
+            "summary": "Full-stack backend development for enterprise clients in oil & gas, offshore and financial sectors.",
+            "highlights": [
+                "Built enterprise applications using Java EE, EJB, JMS, JPA, Hibernate and Apache Camel",
+                "Developed integrations using SOAP/REST web services, XML/XPath/XSLT and Apache CXF",
+                "Worked with Oracle Database, PL/SQL, MySQL and application servers including WildFly and Oracle WebLogic",
+                "Used Oracle Coherence for distributed caching in high-availability deployments",
+                "Contributed to offshore and oil & gas techno-scientific applications using C/C++ and Borland C++ Builder"
+            ],
+            "keywords": [
+                "Java EE",
+                "EJB",
+                "JMS",
+                "Apache Camel",
+                "Oracle",
+                "PL/SQL",
+                "C++",
+                "SOAP",
+                "REST"
+            ]
+        },
+        {
+            "name": "Mathematics and Statistics Institute – Rio de Janeiro State University",
+            "position": "Part-time Professor",
+            "url": "https://www.uerj.br/",
+            "startDate": "2011-07-01",
+            "endDate": "2014-07-01",
+            "summary": "Taught undergraduate programming courses at UERJ.",
+            "highlights": [
+                "Taught Object-Oriented Programming with Java for Computer Science undergraduates",
+                "Taught Introduction to Computing and Programming for Engineering students"
+            ],
+            "keywords": [
+                "Java",
+                "Teaching",
+                "OOP",
+                "Academia"
+            ]
+        },
+        {
+            "name": "Tempo Laboratory – Fluminense Federal University",
+            "position": "Assistant Researcher",
+            "url": "http://www.tempo.uff.br",
+            "startDate": "2011-02-01",
+            "endDate": "2013-02-01",
+            "summary": "Research in real-time, distributed and ubiquitous computing systems at UFF's Tempo Laboratory.",
+            "highlights": [
+                "Researched distributed systems, sensor networks, mobile and ubiquitous computing",
+                "Developed middleware and applications for smart spaces and context-aware environments",
+                "Work formed the basis of MSc thesis on pervasive computing (SmartAndroid platform)"
+            ],
+            "keywords": [
+                "Distributed Systems",
+                "Ubiquitous Computing",
+                "Middleware",
+                "Research",
+                "Java"
+            ]
+        },
+        {
+            "name": "Quetzal Development of Digital Systems",
+            "position": "Intern",
+            "url": null,
+            "startDate": "2010-01-01",
+            "endDate": "2011-01-01",
+            "summary": "Software development internship focused on techno-scientific applications for offshore companies.",
+            "highlights": [
+                "Developed and maintained applications for offshore and oil & gas clients",
+                "Worked primarily in C/C++ and Borland C++ Builder"
+            ],
+            "keywords": [
+                "C",
+                "C++",
+                "Offshore",
+                "Oil & Gas"
             ]
         }
     ],
     "education": [
         {
-            "institution": "Universidade Federal Fluminense",
+            "institution": "Fluminense Federal University",
             "url": "https://www.uff.br/",
-            "area": "Distributed Systems",
+            "area": "Networks and Parallel and Distributed Systems",
             "studyType": "Master of Science",
             "startDate": "2011-01-01",
             "endDate": "2013-12-31",
-            "summary": "Research in ubiquitous/pervasive computing and context-aware systems. Development of middleware and applications for smart spaces."
+            "summary": "Research in ubiquitous and pervasive computing. Developed the SmartAndroid middleware platform for context-aware smart environments."
         },
         {
-            "institution": "Universidade do Estado do Rio de Janeiro",
+            "institution": "Rio de Janeiro State University",
             "url": "https://www.uerj.br/",
             "area": "Computer Science",
             "studyType": "Bachelor of Science",
@@ -88,8 +266,8 @@
         {
             "title": "Honorable Mention",
             "date": "2010-01-01",
-            "awarder": "ACM International Collegiate Programming Contest",
-            "summary": "ICPC contest participation and honorable mention."
+            "awarder": "ACM ICPC – International Collegiate Programming Contest",
+            "summary": "Honorable mention in the ICPC, the most prestigious competitive programming contest for university students."
         }
     ],
     "certificates": [
@@ -105,19 +283,26 @@
             "keywords": [
                 "Java",
                 "Spring",
-                "REST APIs",
-                "Oracle DB",
+                "Java EE",
+                "EJB",
+                "JMS",
                 "Apache Camel",
-                "EJB"
+                "REST APIs",
+                "SOAP",
+                "Oracle DB",
+                "PL/SQL",
+                "MySQL"
             ]
         },
         {
             "name": "Distributed Systems",
             "keywords": [
                 "Messaging",
-                "Distributed Architectures",
                 "High Availability",
-                "System Design"
+                "System Design",
+                "Middleware",
+                "Microservices",
+                "Oracle Coherence"
             ]
         },
         {
@@ -127,16 +312,20 @@
                 "Python",
                 "Rust",
                 "Go",
+                "C",
                 "C++"
             ]
         },
         {
-            "name": "Infrastructure & Tools",
+            "name": "Infrastructure & Observability",
             "keywords": [
                 "Docker",
+                "Kubernetes",
                 "Linux",
                 "Git",
-                "Kubernetes"
+                "Dynatrace",
+                "Datadog",
+                "New Relic"
             ]
         }
     ],
@@ -147,7 +336,11 @@
         },
         {
             "language": "English",
-            "fluency": "Professional working proficiency"
+            "fluency": "Full Professional"
+        },
+        {
+            "language": "Spanish",
+            "fluency": "Intermediate"
         },
         {
             "language": "French",
@@ -156,10 +349,6 @@
         {
             "language": "Russian",
             "fluency": "Beginner"
-        },
-        {
-            "language": "Spanish",
-            "fluency": "Intermediate"
         }
     ],
     "interests": [
@@ -185,14 +374,15 @@
             "keywords": [
                 "Algorithms",
                 "Problem Solving",
-                "Data Structures"
+                "Data Structures",
+                "ICPC"
             ]
         }
     ],
     "projects": [
         {
             "name": "NES Emulator",
-            "description": "Nintendo Entertainment System emulator written in Rust with custom MOS 6502 CPU implementation.",
+            "description": "Nintendo Entertainment System emulator written in Rust with a custom MOS 6502 CPU implementation.",
             "keywords": [
                 "Rust",
                 "Emulation",
@@ -202,22 +392,24 @@
         },
         {
             "name": "Alfred",
-            "description": "Personal AI assistant platform integrating automation, monitoring and conversational interfaces.",
+            "description": "Self-hosted personal AI assistant platform integrating n8n automation, a Python backend, Claude and local LLMs, Telegram, Google Calendar and Gmail.",
             "keywords": [
                 "Python",
                 "LLM",
                 "Automation",
-                "APIs",
-                "n8n"
+                "n8n",
+                "Claude",
+                "Self-hosted"
             ]
         },
         {
             "name": "SmartAndroid",
-            "description": "Research platform and middleware for ubiquitous and context-aware smart environments.",
+            "description": "Research middleware platform for ubiquitous and context-aware smart environments. Developed during MSc at UFF.",
             "keywords": [
                 "Distributed Systems",
                 "Middleware",
                 "Context-aware Computing",
+                "Android",
                 "Research"
             ]
         }
