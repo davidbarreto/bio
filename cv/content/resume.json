@@ -1,0 +1,270 @@
+{
+    "$schema": "https://raw.githubusercontent.com/jsonresume/resume-schema/master/schema.json",
+    "basics": {
+        "name": "David Barreto Ferreira",
+        "label": "Backend Software Engineer / Tech Lead",
+        "image": "https://bio.davidbf.com/assets/profile-david.png",
+        "email": "hello@davidbf.com",
+        "url": "https://www.davidbf.com",
+        "summary": "Backend Software Engineer and Tech Lead with more than 10 years of experience designing and developing distributed systems and backend platforms. Currently leading a Java team at Devexperts working on core components of the thinkorswim trading platform. Experienced with Java, distributed systems, Oracle databases, Apache Camel and financial software infrastructure. Interested in systems programming, Rust, architecture, automation, emulation and developer tooling.",
+        "location": {
+            "city": "Matosinhos",
+            "region": "Porto",
+            "countryCode": "PT"
+        },
+        "profiles": [
+            {
+                "network": "LinkedIn",
+                "username": "david-ferreira-7283462b",
+                "url": "https://www.linkedin.com/in/david-ferreira-7283462b/"
+            },
+            {
+                "network": "GitHub",
+                "username": "davidbarreto",
+                "url": "https://github.com/davidbarreto"
+            },
+            {
+                "network": "X",
+                "username": "david_bf",
+                "url": "https://x.com/david_bf"
+            },
+            {
+                "network": "Instagram",
+                "username": "david.brto",
+                "url": "https://instagram.com/david.brto"
+            },
+            {
+                "network": "Lattes",
+                "url": "https://lattes.cnpq.br/8553670361123217"
+            }
+        ]
+    },
+    "work": [
+        {
+            "name": "Devexperts",
+            "position": "Java Team Lead",
+            "url": "https://devexperts.com/",
+            "startDate": "2023-08-01",
+            "summary": "Leading a backend engineering team responsible for core components of the thinkorswim trading platform.",
+            "highlights": [
+                "Leading a team of 4–6 engineers in the development and maintenance of trading platform infrastructure",
+                "Developing backend systems using Java 17, Oracle DB and distributed communication technologies",
+                "Working on mission-critical financial software with high reliability and performance requirements",
+                "Collaborating across distributed international teams on architecture and production support",
+                "Contributing to system design, technical leadership and engineering processes"
+            ],
+            "keywords": [
+                "Java",
+                "Java 17",
+                "Oracle",
+                "Distributed Systems",
+                "Financial Systems",
+                "Trading Platforms",
+                "Leadership",
+                "Backend"
+            ]
+        }
+    ],
+    "education": [
+        {
+            "institution": "Universidade Federal Fluminense",
+            "url": "https://www.uff.br/",
+            "area": "Distributed Systems",
+            "studyType": "Master of Science",
+            "startDate": "2011-01-01",
+            "endDate": "2013-12-31",
+            "summary": "Research in ubiquitous/pervasive computing and context-aware systems. Development of middleware and applications for smart spaces."
+        },
+        {
+            "institution": "Universidade do Estado do Rio de Janeiro",
+            "url": "https://www.uerj.br/",
+            "area": "Computer Science",
+            "studyType": "Bachelor of Science",
+            "startDate": "2007-01-01",
+            "endDate": "2010-12-31"
+        }
+    ],
+    "awards": [
+        {
+            "title": "Honorable Mention",
+            "date": "2010-01-01",
+            "awarder": "ACM International Collegiate Programming Contest",
+            "summary": "ICPC contest participation and honorable mention."
+        }
+    ],
+    "certificates": [
+        {
+            "name": "Gestão e Liderança",
+            "issuer": "FGV Brazil",
+            "date": "2016-06-01"
+        }
+    ],
+    "skills": [
+        {
+            "name": "Backend Development",
+            "keywords": [
+                "Java",
+                "Spring",
+                "REST APIs",
+                "Oracle DB",
+                "Apache Camel",
+                "EJB"
+            ]
+        },
+        {
+            "name": "Distributed Systems",
+            "keywords": [
+                "Messaging",
+                "Distributed Architectures",
+                "High Availability",
+                "System Design"
+            ]
+        },
+        {
+            "name": "Programming Languages",
+            "keywords": [
+                "Java",
+                "Python",
+                "Rust",
+                "Go",
+                "C++"
+            ]
+        },
+        {
+            "name": "Infrastructure & Tools",
+            "keywords": [
+                "Docker",
+                "Linux",
+                "Git",
+                "Kubernetes"
+            ]
+        }
+    ],
+    "languages": [
+        {
+            "language": "Portuguese",
+            "fluency": "Native"
+        },
+        {
+            "language": "English",
+            "fluency": "Professional working proficiency"
+        },
+        {
+            "language": "French",
+            "fluency": "Intermediate"
+        },
+        {
+            "language": "Russian",
+            "fluency": "Beginner"
+        },
+        {
+            "language": "Spanish",
+            "fluency": "Intermediate"
+        }
+    ],
+    "interests": [
+        {
+            "name": "Systems Programming",
+            "keywords": [
+                "Rust",
+                "Emulation",
+                "Low-level Programming"
+            ]
+        },
+        {
+            "name": "Music",
+            "keywords": [
+                "Guitar",
+                "Jazz",
+                "Bossa Nova",
+                "Arrangement"
+            ]
+        },
+        {
+            "name": "Competitive Programming",
+            "keywords": [
+                "Algorithms",
+                "Problem Solving",
+                "Data Structures"
+            ]
+        }
+    ],
+    "projects": [
+        {
+            "name": "NES Emulator",
+            "description": "Nintendo Entertainment System emulator written in Rust with custom MOS 6502 CPU implementation.",
+            "keywords": [
+                "Rust",
+                "Emulation",
+                "Systems Programming",
+                "6502"
+            ]
+        },
+        {
+            "name": "Alfred",
+            "description": "Personal AI assistant platform integrating automation, monitoring and conversational interfaces.",
+            "keywords": [
+                "Python",
+                "LLM",
+                "Automation",
+                "APIs",
+                "n8n"
+            ]
+        },
+        {
+            "name": "SmartAndroid",
+            "description": "Research platform and middleware for ubiquitous and context-aware smart environments.",
+            "keywords": [
+                "Distributed Systems",
+                "Middleware",
+                "Context-aware Computing",
+                "Research"
+            ]
+        }
+    ],
+    "x-competitiveProgramming": [
+        {
+            "platform": "LeetCode",
+            "username": "david_bf",
+            "url": "https://leetcode.com/u/david_bf/"
+        },
+        {
+            "platform": "HackerRank",
+            "username": "david_brto",
+            "url": "https://www.hackerrank.com/profile/david_brto"
+        },
+        {
+            "platform": "Codeforces",
+            "username": "david_bf",
+            "url": "https://codeforces.com/profile/david_bf"
+        },
+        {
+            "platform": "CodeChef",
+            "username": "david_bf",
+            "url": "https://www.codechef.com/users/david_bf"
+        },
+        {
+            "platform": "TopCoder",
+            "username": "david_bf",
+            "url": "https://profiles.topcoder.com/david_bf"
+        },
+        {
+            "platform": "SPOJ",
+            "username": "david_bf",
+            "url": "https://www.spoj.com/status/david_bf/"
+        },
+        {
+            "platform": "UVa Online Judge",
+            "username": "DavidGtr",
+            "url": "https://onlinejudge.org/index.php?option=com_onlinejudge&Itemid=19&page=show_authorstats&userid=26642"
+        }
+    ],
+    "x-meta": {
+        "theme": "dark",
+        "preferredLocale": "en",
+        "availableLocales": [
+            "en",
+            "pt"
+        ]
+    }
+}
