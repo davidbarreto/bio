@@ -1,4 +1,3 @@
-// components/ThemeToggle.tsx
 'use client'
 
 import { useEffect, useState } from 'react'
@@ -19,7 +18,18 @@ export default function ThemeToggle() {
     return (
         <button
             onClick={toggle}
-            className="text-sm px-3 py-1 rounded border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
+            style={{
+                padding: '6px 14px',
+                borderRadius: '8px',
+                border: '1px solid var(--border)',
+                background: 'var(--card-bg)',
+                color: 'var(--text-secondary)',
+                fontSize: '12px',
+                cursor: 'pointer',
+                fontFamily: 'monospace',
+                letterSpacing: '0.05em',
+                transition: 'all 0.2s',
+            } as React.CSSProperties}
         >
             {dark ? '☀ Light' : '☾ Dark'}
         </button>
