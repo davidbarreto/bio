@@ -8,7 +8,6 @@ interface Props {
 export default function Projects({ projects }: Props) {
     return (
         <Section title="Projects">
-            <h2 className="text-xl font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 mb-6 text-gray-900 dark:text-gray-100">Projects</h2>
             <div className="flex flex-col gap-6">
                 {projects.map((project) => (
                     <div key={project.name}>
