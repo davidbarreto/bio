@@ -18,6 +18,8 @@ export default function CircleIcon({ href, label, children }: Props) {
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
             style={{
+                position: "relative",
+                zIndex: 10,
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",

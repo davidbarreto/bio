@@ -15,6 +15,7 @@ export default function Section({ title, defaultOpen = true, children }: Props) 
     return (
         <section className="mt-14">
             <button
+                type="button"
                 onClick={() => setOpen(o => !o)}
                 className="flex items-center gap-3 w-full mb-0 border-none bg-transparent p-0 cursor-pointer text-left"
                 style={{ marginBottom: open ? "24px" : "0", transition: "margin 0.25s" }}

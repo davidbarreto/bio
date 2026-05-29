@@ -30,8 +30,8 @@
             },
             {
                 "network": "Instagram",
-                "username": "david.brto",
-                "url": "https://instagram.com/david.brto"
+                "username": "davidbrto",
+                "url": "https://instagram.com/davidbrto"
             },
             {
                 "network": "Lattes",
@@ -142,7 +142,7 @@
         {
             "name": "Prill Tecnologia",
             "position": "Tech Lead",
-            "url": null,
+            "url": "https://www.prill.com.br",
             "startDate": "2017-01-01",
             "endDate": "2019-05-01",
             "summary": "Technical leadership for software projects in the oil & gas and financial sectors.",
@@ -163,7 +163,7 @@
         {
             "name": "Prill Tecnologia",
             "position": "Software Developer",
-            "url": null,
+            "url": "https://www.prill.com.br",
             "startDate": "2012-11-01",
             "endDate": "2017-01-01",
             "summary": "Full-stack backend development for enterprise clients in oil & gas, offshore and financial sectors.",
@@ -227,7 +227,7 @@
         {
             "name": "Quetzal Development of Digital Systems",
             "position": "Intern",
-            "url": null,
+            "url": "https://quetzal.com.br/",
             "startDate": "2010-01-01",
             "endDate": "2011-01-01",
             "summary": "Software development internship focused on techno-scientific applications for offshore companies.",

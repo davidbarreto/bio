@@ -4,19 +4,16 @@ import { useState } from 'react'
 
 interface Props {
     open: boolean
-    onClick: () => void
 }
 
-export default function SpeechBubbleToggle({ open, onClick }: Props) {
+export default function SpeechBubbleToggle({ open }: Props) {
     const [hovered, setHovered] = useState(false)
 
     return (
-        <button
-            onClick={onClick}
+        <div
             onMouseEnter={() => setHovered(true)}
             onMouseLeave={() => setHovered(false)}
-            title={open ? "Hide summary" : "Show summary"}
-            style={{ background: "none", border: "none", cursor: "pointer", padding: 0, display: "inline-flex", alignItems: "center" }}
+            className="inline-flex items-center"
         >
             <svg width="28" height="25" viewBox="0 0 36 32" fill="none">
                 <rect x="1" y="1" width="34" height="24" rx="6"
@@ -38,6 +35,6 @@ export default function SpeechBubbleToggle({ open, onClick }: Props) {
                     />
                 ))}
             </svg>
-        </button>
+        </div>
     )
 }

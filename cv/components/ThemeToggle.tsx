@@ -11,13 +11,18 @@ export default function ThemeToggle() {
 
     function toggle() {
         const isDark = document.documentElement.classList.toggle('dark')
-        localStorage.setItem('theme', isDark ? 'dark' : 'light')
+        try {
+            localStorage.setItem('theme', isDark ? 'dark' : 'light')
+        } catch (e) {}
         setDark(isDark)
     }
 
     return (
         <button
+            type="button"
             onClick={toggle}
+            aria-label="Toggle dark mode"
+            className="relative z-10"
             style={{
                 padding: '6px 14px',
                 borderRadius: '8px',
