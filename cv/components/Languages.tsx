@@ -1,30 +1,56 @@
-interface Language {
-    language: string
-    fluency: string
-}
+import { ResumeLanguage } from '../lib/resume'
+import Section from './ui/Section'
 
 interface Props {
-    languages: Language[]
+    languages: ResumeLanguage[]
 }
 
-const fluencyOrder = ['Native', 'Full Professional', 'Professional working proficiency', 'Intermediate', 'Beginner']
+const FLUENCY_LEVELS: Record<string, number> = {
+    'Native': 100,
+    'Full Professional': 85,
+    'Professional working proficiency': 75,
+    'Intermediate': 50,
+    'Beginner': 25,
+}
 
-export default function Languages({ languages }: Props) {
-    const sorted = [...languages].sort(
-        (a, b) => fluencyOrder.indexOf(a.fluency) - fluencyOrder.indexOf(b.fluency)
-    )
+function LanguageBar({ language, fluency }: ResumeLanguage) {
+    const pct = FLUENCY_LEVELS[fluency] ?? 30
 
     return (
-        <section className="mt-12">
-            <h2 className="text-xl font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 mb-6 text-gray-900 dark:text-gray-100">Languages</h2>
-            <div className="flex flex-col gap-2">
-                {sorted.map((lang) => (
-                    <div key={lang.language} className="flex justify-between text-sm">
-                        <span className="font-medium text-gray-900 dark:text-gray-100">{lang.language}</span>
-                        <span className="text-gray-500 dark:text-gray-400">{lang.fluency}</span>
-                    </div>
+        <div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: '6px' }}>
+                <span style={{ fontSize: '13px', fontWeight: 500, color: 'var(--text-primary)' }}>
+                    {language}
+                </span>
+                <span style={{ fontSize: '10px', color: 'var(--text-muted)', fontFamily: 'monospace', letterSpacing: '0.04em' }}>
+                    {fluency}
+                </span>
+            </div>
+            <div style={{ height: '3px', borderRadius: '999px', background: 'var(--border)', overflow: 'hidden' }}>
+                <div style={{
+                    height: '100%',
+                    width: `${pct}%`,
+                    borderRadius: '999px',
+                    background: 'var(--accent)',
+                    transition: 'width 0.6s ease',
+                }} />
+            </div>
+        </div>
+    )
+}
+
+export default function Languages({ languages }: Props) {
+    return (
+        <Section title="Languages">
+            <div style={{
+                display: 'grid',
+                gridTemplateColumns: 'repeat(auto-fill, minmax(280px, 1fr))',
+                gap: '20px',
+            }}>
+                {languages.map(l => (
+                    <LanguageBar key={l.language} language={l.language} fluency={l.fluency} />
                 ))}
             </div>
-        </section>
+        </Section>
     )
 }

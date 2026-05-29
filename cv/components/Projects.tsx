@@ -1,4 +1,5 @@
 import { ResumeProject } from '../lib/resume'
+import Section from './ui/Section'
 
 interface Props {
     projects: ResumeProject[]
@@ -6,7 +7,7 @@ interface Props {
 
 export default function Projects({ projects }: Props) {
     return (
-        <section className="mt-12">
+        <Section title="Projects">
             <h2 className="text-xl font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 mb-6 text-gray-900 dark:text-gray-100">Projects</h2>
             <div className="flex flex-col gap-6">
                 {projects.map((project) => (
@@ -34,6 +35,6 @@ export default function Projects({ projects }: Props) {
                     </div>
                 ))}
             </div>
-        </section>
+        </Section>
     )
 }

@@ -1,4 +1,5 @@
 import { ResumeEducation } from '../lib/resume'
+import Section from './ui/Section'
 
 interface Props {
     education: ResumeEducation[]
@@ -6,8 +7,7 @@ interface Props {
 
 export default function Education({ education }: Props) {
     return (
-        <section className="mt-12">
-            <h2 className="text-xl font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 mb-6 text-gray-900 dark:text-gray-100">Education</h2>
+        <Section title="Education">
             <div className="flex flex-col gap-6">
                 {education.map((entry) => (
                     <div key={entry.institution}>
@@ -28,6 +28,6 @@ export default function Education({ education }: Props) {
                     </div>
                 ))}
             </div>
-        </section>
+        </Section>
     )
 }

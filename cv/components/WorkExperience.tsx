@@ -1,4 +1,5 @@
 import { ResumeWork } from '../lib/resume'
+import Section from './ui/Section'
 
 interface Props {
     work: ResumeWork[]
@@ -11,8 +12,7 @@ function formatDate(dateStr: string): string {
 
 export default function WorkExperience({ work }: Props) {
     return (
-        <section className="mt-12">
-            <h2 className="text-xl font-semibold border-b border-gray-200 dark:border-gray-700 pb-2 mb-6 text-gray-900 dark:text-gray-100">Work Experience</h2>
+        <Section title="Work Experience">
             <div className="flex flex-col gap-8">
                 {work.map((job) => (
                     <div key={`${job.name}-${job.startDate}`}>
@@ -40,6 +40,6 @@ export default function WorkExperience({ work }: Props) {
                     </div>
                 ))}
             </div>
-        </section>
+        </Section>
     )
 }

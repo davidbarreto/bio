@@ -52,14 +52,33 @@ export interface ResumeProject {
     keywords: string[]
 }
 
+export interface ResumeLanguage {
+    language: string
+    fluency: string
+}
+
+export interface ResumeAward {
+    title: string
+    date: string
+    awarder: string
+    summary: string
+}
+
+export interface ResumeCertificate {
+    name: string
+    issuer: string
+    date: string
+    summary?: string
+}
+
 export interface Resume {
     basics: ResumeBasics
     work: ResumeWork[]
     education: ResumeEducation[]
-    awards: { title: string; date: string; awarder: string; summary: string }[]
-    certificates: { name: string; issuer: string; date: string }[]
+    awards: ResumeAward[]
+    certificates: ResumeCertificate[]
     skills: ResumeSkill[]
-    languages: { language: string; fluency: string }[]
+    languages: ResumeLanguage[]
     interests: { name: string; keywords: string[] }[]
     projects: ResumeProject[]
 }
