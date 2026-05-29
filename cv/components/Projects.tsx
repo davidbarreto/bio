@@ -1,39 +1,40 @@
 import { ResumeProject } from '../lib/resume'
+import Tag from './ui/Tag'
 import Section from './ui/Section'
 
 interface Props {
-    projects: ResumeProject[]
+  projects: ResumeProject[]
 }
 
 export default function Projects({ projects }: Props) {
-    return (
-        <Section title="Projects">
-            <div className="flex flex-col gap-6">
-                {projects.map((project) => (
-                    <div key={project.name}>
-                        <div className="flex items-center gap-2">
-                            {project.url ? (
-                                <a href={project.url} className="font-semibold text-blue-600 dark:text-blue-400 hover:underline">
-                                    {project.name}
-                                </a>
-                            ) : (
-                                <h3 className="font-semibold text-gray-900 dark:text-gray-100">{project.name}</h3>
-                            )}
-                        </div>
-                        <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{project.description}</p>
-                        <div className="flex flex-wrap gap-2 mt-2">
-                            {project.keywords.map((keyword) => (
-                                <span
-                                    key={keyword}
-                                    className="px-2 py-1 bg-gray-100 dark:bg-gray-800 text-gray-700 dark:text-gray-300 text-xs rounded"
-                                >
-                                    {keyword}
-                                </span>
-                            ))}
-                        </div>
-                    </div>
-                ))}
+  return (
+    <Section title="Projects">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+        {projects.map(project => (
+          <div key={project.name} style={{
+            padding: '18px 22px',
+            borderRadius: '10px',
+            border: '1px solid var(--border)',
+            background: 'var(--card-bg)',
+          }}>
+            <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)' }}>
+              {project.url ? (
+                <a href={project.url} style={{ color: 'var(--text-primary)', textDecoration: 'none' }}>
+                  {project.name}
+                </a>
+              ) : (
+                project.name
+              )}
+            </span>
+            <p style={{ marginTop: '6px', fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+              {project.description}
+            </p>
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', marginTop: '10px' }}>
+              {project.keywords.map(k => <Tag key={k} label={k} />)}
             </div>
-        </Section>
-    )
+          </div>
+        ))}
+      </div>
+    </Section>
+  )
 }

@@ -1,3 +1,5 @@
+'use client'
+
 import { ResumeEducation } from '../lib/resume'
 import Section from './ui/Section'
 
@@ -8,23 +10,47 @@ interface Props {
 export default function Education({ education }: Props) {
     return (
         <Section title="Education">
-            <div className="flex flex-col gap-6">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
                 {education.map((entry) => (
-                    <div key={entry.institution}>
-                        <div className="flex justify-between items-start">
+                    <div key={entry.institution} style={{
+                        padding: '18px 22px',
+                        borderRadius: '10px',
+                        border: '1px solid var(--border)',
+                        background: 'var(--card-bg)',
+                    }}>
+                        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
                             <div>
-                                <h3 className="font-semibold text-gray-900 dark:text-gray-100">{entry.studyType} in {entry.area}</h3>
-                                <a href={entry.url} className="text-blue-600 dark:text-blue-400 hover:underline text-sm">
-                                    {entry.institution}
-                                </a>
+                                <span style={{ fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)' }}>
+                                    {entry.studyType}
+                                </span>
+                                <p style={{ fontSize: '12px', color: 'var(--text-secondary)', marginTop: '3px' }}>
+                                    {entry.area} ·{' '}
+                                    <a href={entry.url}
+                                        style={{ color: 'var(--text-secondary)', textDecoration: 'none' }}
+                                        onMouseEnter={e => ((e.target as HTMLElement).style.color = 'var(--text-primary)')}
+                                        onMouseLeave={e => ((e.target as HTMLElement).style.color = 'var(--text-secondary)')}
+                                    >
+                                        {entry.institution}
+                                    </a>
+                                </p>
                             </div>
-                            <span className="text-sm text-gray-400 dark:text-gray-500 whitespace-nowrap ml-4">
+                            <span style={{
+                                fontSize: '11px',
+                                color: 'var(--text-muted)',
+                                fontFamily: 'monospace',
+                                whiteSpace: 'nowrap',
+                                marginLeft: '16px',
+                            }}>
                                 {entry.startDate.slice(0, 4)} — {entry.endDate.slice(0, 4)}
                             </span>
                         </div>
-                        {entry.summary && (
-                            <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{entry.summary}</p>
-                        )}
+                        {
+                            entry.summary && (
+                                <p style={{ marginTop: '10px', fontSize: '13px', color: 'var(--text-secondary)', lineHeight: 1.6 }}>
+                                    {entry.summary}
+                                </p>
+                            )
+                        }
                     </div>
                 ))}
             </div>
