@@ -20,7 +20,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_KEY }}
-          script: rm -rf /var/www/about/*
+          script: rm -rf /var/www/personal-www/about/*
 
       - name: Copy files to VPS
         uses: appleboy/scp-action@v0.1.7
@@ -29,5 +29,5 @@ jobs:
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.VPS_KEY }}
           source: about/*
-          target: /var/www/about
+          target: /var/www/personal-www/about
           strip_components: 1
