@@ -6,7 +6,7 @@
         "image": "https://bio.davidbf.com/assets/profile-david.png",
         "email": "hello@davidbf.com",
         "url": "https://www.davidbf.com",
-        "summary": "Backend engineer with 10+ years building distributed systems, mostly in Java, mostly in places where downtime isn't an option. I've shipped trading infrastructure, financial middleware, and offshore tooling — and led the teams doing it. Currently tech lead at Devexperts on the thinkorswim platform. Outside of work I'm exploring Rust, building a NES emulator, and assembling a self-hosted AI assistant I call Alfred.",
+        "summary": "Backend engineer with 10+ years building distributed systems, mostly in Java. Currently tech lead at Devexperts. Outside of work I'm exploring Rust, building a NES emulator, and assembling a self-hosted AI assistant I call Alfred.",
         "location": {
             "city": "Matosinhos",
             "region": "Porto",
